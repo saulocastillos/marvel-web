@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import media from 'styled-media-query'
 
 export const Container = styled.div`
   width: 100vw;
@@ -21,9 +22,8 @@ export const RouteSection = styled.div`
 
 export const FooterSection = styled.div`
   grid-area: f;
-  height: 350px;
-  border: 5px dashed red;
-  border: 1px solid red;
+  min-height: 450px;
+  width: 100%;
   background-color: ${({ theme }) => theme.primaryColor};
   display: grid;
   grid-template-areas:
@@ -33,4 +33,18 @@ export const FooterSection = styled.div`
   grid-template-rows: auto auto;
   gap: 20px 0;
   align-items: center;
+
+  ${media.lessThan('medium')`${css`
+    grid-template-areas:
+      '. lg . '
+      '. pgs .'
+      '. lks .'
+      '. trm .'
+      '. othlks .';
+    grid-template-columns: 10px 1fr 10px;
+    grid-auto-rows: auto;
+    gap: 20px 0;
+    align-items: center;
+  `}
+  `}
 `

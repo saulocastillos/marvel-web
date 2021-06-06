@@ -12,7 +12,7 @@ import {
 function Navbar() {
   return (
     <Container>
-      <Logo>MARVEL</Logo>
+      <Logo to='/'>MARVEL</Logo>
       <Links>
         <LinkItem to='/videos'>VIDEOS</LinkItem>
         <LinkItem to='/character'>CHARACTERS</LinkItem>

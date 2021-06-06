@@ -1,4 +1,5 @@
 import { useEffect, useState, SyntheticEvent } from 'react'
+import { Link } from 'react-router-dom'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 import useCharacters from '../../hooks/useCharacters'
@@ -17,7 +18,8 @@ import {
   SearchBox,
   Content,
   List,
-  SearchTitle,
+  Input,
+  SearchIconWrapper,
 } from './styles'
 
 const defaultCharacters: CharacterType[] = []
@@ -52,13 +54,15 @@ function Characters() {
       <Header>
         <PageTitle>Marvel Characters List</PageTitle>
         <SearchBox>
-          <SearchTitle
+          <Input
             type='search'
             placeholder='Search'
             value={search}
             onChange={(e) => handleChange(e)}
           />
-          <Icon size='10x' icon={faSearch} color='#d84128' />
+          <SearchIconWrapper>
+            <Icon size='10x' icon={faSearch} color='#d84128' />
+          </SearchIconWrapper>
         </SearchBox>
       </Header>
       <FilterBar
@@ -70,9 +74,16 @@ function Characters() {
         <List>
           {searchResults?.length > 0 &&
             searchResults.map((character: CharacterType) => {
-              const { id, name, thumbnail } = character
+              const { id, name, thumbnail, description } = character
               return (
-                <CharacterCard key={id} name={name} thumbnail={thumbnail} />
+                <Link to={`/character/${id}`}>
+                  <CharacterCard
+                    key={id}
+                    name={name}
+                    thumbnail={thumbnail}
+                    description={description}
+                  />
+                </Link>
               )
             })}
           {loading && <h1>Carregando...</h1>}

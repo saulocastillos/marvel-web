@@ -4,9 +4,7 @@ import Bebas from '../assets/fonts/Bebas-Regular.ttf'
 import MarvelRegular from '../assets/fonts/Marvel-Regular.ttf'
 
 const GlobalStyle = createGlobalStyle`${css`
-  *,
-  *::after,
-  *::before {
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -51,6 +49,18 @@ const GlobalStyle = createGlobalStyle`${css`
     :hover {
       opacity: 1;
     }
+    cursor: pointer;
+  }
+
+  a {
+    font-size: ${({ theme }) => theme.fontSize.md};
+    color: ${({ theme }) => theme.textColor};
+    padding: 1rem;
+    opacity: 0.6;
+    :hover {
+      opacity: 1;
+    }
+    text-decoration: none;
     cursor: pointer;
   }
 `}

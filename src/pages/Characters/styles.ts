@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import media from 'styled-media-query'
 
 export const Container = styled.div`
   display: grid;
@@ -20,6 +21,17 @@ export const Header = styled.div`
   grid-template-areas: 'title search';
   gap: ${({ theme }) => theme.spacing.xxs};
   padding-bottom: ${({ theme }) => theme.spacing.xl};
+
+  ${media.lessThan('medium')`${css`
+    grid-template-areas:
+      'title'
+      'search';
+
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: ${({ theme }) => theme.spacing.md};
+  `}
+  `}
 `
 
 export const PageTitle = styled.h1`
@@ -30,6 +42,12 @@ export const PageTitle = styled.h1`
   font-weight: 900;
   padding-top: ${({ theme }) => theme.spacing.xl};
   line-height: ${({ theme }) => theme.fontSize.ninth};
+  ${media.lessThan('medium')`${css`
+    grid-area: title;
+    font-size: ${({ theme }) => theme.fontSize.fourth};
+    line-height: ${({ theme }) => theme.fontSize.fourth};
+  `}
+  `}
 `
 
 export const SearchBox = styled.div`
@@ -37,28 +55,45 @@ export const SearchBox = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  ${media.lessThan('medium')`${css`
+    grid-area: search;
+    justify-content: flex-start;
+  `}
+  `}
 `
 
-export const SearchTitle = styled.input`
+export const SearchIconWrapper = styled.div`
+  ${media.lessThan('medium')`${css`
+    display: none;
+  `}
+  `}
+`
+
+export const Input = styled.input`
   border: none;
   background-color: ${({ theme }) => theme.backgroundColor};
   color: ${({ theme }) => theme.textColor};
   font-size: ${({ theme }) => theme.fontSize.lg};
   font-weight: 900;
   text-align: right;
-  padding-right: 1rem;
+  ${media.lessThan('medium')`${css`
+    text-align: left;
+  `}
+  `}
 `
 
 export const Content = styled.div`
   grid-area: c;
-  display: flex;
-  gap: 2rem;
-  flex-direction: column;
 `
 
 export const List = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 1rem;
+  display: grid;
+  gap: 4px;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  ${media.lessThan('medium')`${css``}
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  `}
 `
