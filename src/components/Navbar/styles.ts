@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 export const Container = styled.div`
   height: 100px;
@@ -24,7 +25,7 @@ export const Links = styled.div`
   justify-content: center;
 `
 
-export const LinkItem = styled.span`
+export const LinkItem = styled(Link)`
   font-size: ${({ theme }) => theme.fontSize.md};
   color: ${({ theme }) => theme.textColor};
   padding: 1rem;
@@ -32,6 +33,7 @@ export const LinkItem = styled.span`
   :hover {
     opacity: 1;
   }
+  text-decoration: none;
   cursor: pointer;
 `
 

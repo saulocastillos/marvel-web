@@ -14,12 +14,12 @@ function Navbar() {
     <Container>
       <Logo>MARVEL</Logo>
       <Links>
-        <LinkItem>VIDEOS</LinkItem>
-        <LinkItem>CHARACTERS</LinkItem>
-        <LinkItem>COMICS</LinkItem>
-        <LinkItem>MOVIES</LinkItem>
-        <LinkItem>TV SHOW</LinkItem>
-        <LinkItem>NEWS</LinkItem>
+        <LinkItem to='/videos'>VIDEOS</LinkItem>
+        <LinkItem to='/character'>CHARACTERS</LinkItem>
+        <LinkItem to='/comics'>COMICS</LinkItem>
+        <LinkItem to='/movies'>MOVIES</LinkItem>
+        <LinkItem to='/shows'>TV SHOW</LinkItem>
+        <LinkItem to='/news'>NEWS</LinkItem>
       </Links>
       <Action>
         <Name>SAULO CASTILHOS</Name>
