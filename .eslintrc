@@ -19,6 +19,11 @@
   },
   "plugins": ["react", "@typescript-eslint", "react-hooks"],
   "rules": {
+    "no-lone-blocks": "warn",
+    "no-underscore-dangle": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "react/jsx-props-no-spreading": "off",
+    "no-console": "off",
     "react/jsx-filename-extension": [
       "error",
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
@@ -29,7 +34,6 @@
     "import/prefer-default-export": "off",
     "jsx-quotes": ["error", "prefer-single"],
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
     "no-use-before-define": ["off", { "variables": false }],
     "react/react-in-jsx-scope": "off",
     "import/extensions": [
