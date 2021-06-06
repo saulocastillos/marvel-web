@@ -1,5 +1,7 @@
 import 'styled-components'
 
+declare module '*.ttf'
+
 export type palletTypes = {
   50?: string
   100?: string
@@ -43,6 +45,13 @@ export type fontSizeType = {
   lg?: string
   xl?: string
   xxl?: string
+  fourth?: string
+  fifth?: string
+  sixth?: string
+  seventh?: string
+  eighth?: string
+  ninth?: string
+  tenth?: string
 }
 
 export type spacingType = {
@@ -78,6 +87,7 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     name: ThemeType
     backgroundColor: string
+    primaryColor?: string
     textColor: string
     colors: colorType
     fontFamily: string
