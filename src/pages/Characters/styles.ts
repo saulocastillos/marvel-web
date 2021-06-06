@@ -90,7 +90,7 @@ export const List = styled.div`
   display: grid;
   gap: 4px;
   grid-template-rows: repeat(4, 1fr);
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 0.8fr);
   ${media.lessThan('medium')`${css``}
     display: flex;
     flex-wrap: wrap;

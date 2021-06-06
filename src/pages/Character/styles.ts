@@ -74,8 +74,13 @@ export const SectionTitle = styled.span`
 `
 
 export const List = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
   gap: 1rem;
+  grid-auto-rows: auto;
+  grid-template-columns: repeat(3, 0.8fr);
+  ${media.lessThan('medium')`${css``}
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  `}
 `
