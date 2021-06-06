@@ -77,7 +77,8 @@ export const Action = styled.div`
   justify-content: space-between;
   ${media.lessThan('medium')`${css`
     grid-area: p;
-    justify-content: space-around;
+    justify-content: space-between;
+    margin-left: 10px;
   `}
   `}
 `
