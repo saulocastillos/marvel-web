@@ -1,21 +1,17 @@
 import { Switch, Route } from 'react-router-dom'
 
-/* import Home from '../pages/Home'
-import Sub from '../pages/Sub' */
+import Home from '../pages/Home'
+import Characters from '../pages/Characters'
+import Character from '../pages/Character'
+import PageNotFound from '../pages/PageNotFound'
 
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path='/' component={() => <div>Home</div>} />
-      <Route exact path='/sub' component={() => <div>Sub</div>} />
-      <Route
-        path='*'
-        component={() => (
-          <div>
-            <h1>404</h1>
-          </div>
-        )}
-      />
+      <Route exact path='/' component={Characters} />
+      <Route exact path='/character' component={Characters} />
+      <Route exact path='/character/:id' component={Character} />
+      <Route path='*' component={PageNotFound} />
     </Switch>
   )
 }
