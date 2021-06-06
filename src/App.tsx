@@ -1,24 +1,31 @@
 import { ThemeProvider } from 'styled-components'
 import GlobalStyle from './styles/GlobalStyle'
+
+import Navbar from './components/Navbar'
 import Routes from './routes'
+import Footer from './components/Footer'
+
+import { Container, NavSection, RouteSection, FooterSection } from './styles'
 
 import useTheme from './hooks/useTheme'
 
 function App() {
-  const { switchTheme, theme } = useTheme()
+  const { theme } = useTheme()
 
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Routes />
-      {/*  <button
-        type='button'
-        onClick={() => {
-          switchTheme()
-        }}
-      >
-        Mudar Tema
-      </button> */}
+      <Container>
+        <NavSection>
+          <Navbar />
+        </NavSection>
+        <RouteSection>
+          <Routes />
+        </RouteSection>
+        <FooterSection>
+          <Footer />
+        </FooterSection>
+      </Container>
     </ThemeProvider>
   )
 }
