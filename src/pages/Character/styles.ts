@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import media from 'styled-media-query'
 
 export const Container = styled.div`
   display: grid;
@@ -14,13 +15,11 @@ export const Container = styled.div`
 
 export const Header = styled.div`
   grid-area: h;
-  /* display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  grid-template-rows: 1fr;
-  grid-template-areas: 'title search';
-  gap: ${({ theme }) => theme.spacing.xxs};
-  padding-bottom: ${({ theme }) => theme.spacing.xl}; */
   position: relative;
+  ${media.lessThan('medium')`${css`
+    margin-top: 40px;
+  `}
+  `}
 `
 
 export const CharacterName = styled.span`
@@ -30,15 +29,28 @@ export const CharacterName = styled.span`
   letter-spacing: -4px;
   margin-left: 6rem;
   position: absolute;
+  ${media.lessThan('medium')`${css`
+    font-size: ${({ theme }) => theme.fontSize.fourth};
+    margin-left: 1rem;
+  `}
+  `}
 `
 
-export const Image = styled.div`
+type ImageProps = {
+  imgSrc?: string
+}
+
+export const Image = styled.div<ImageProps>`
   width: 100%;
   height: 50vw;
   margin-top: 100px;
-  background-image: url('http://i.annihil.us/u/prod/marvel/i/mg/9/c0/527bb7b37ff55.jpg');
+  background-image: url(${(props) => props?.imgSrc});
   background-size: cover;
   background-position: center;
+  ${media.lessThan('medium')`${css`
+    margin-top: 40px;
+  `}
+  `}
 `
 
 export const SeriesSection = styled.div`
@@ -54,6 +66,11 @@ export const SectionTitle = styled.span`
   color: ${({ theme }) => theme.textColor};
   letter-spacing: -4px;
   margin-left: 6rem;
+  ${media.lessThan('medium')`${css`
+    font-size: ${({ theme }) => theme.fontSize.fourth};
+    margin-left: 0rem;
+  `}
+  `}
 `
 
 export const List = styled.div`

@@ -1,15 +1,7 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-
-import Api from '../../services/api'
-
 import MidiaCard from '../../components/MidiaCard'
+import useCharacter from '../../hooks/useCharacter'
 
-import { CharacterType } from '../../types/character'
 import { SerieType } from '../../types/serie'
-
-import character from './mock.json'
-import serie from './series.json'
 
 import {
   Container,
@@ -22,40 +14,31 @@ import {
   List,
 } from './styles'
 
-type ParamsProp = {
-  id: string
-}
-
 const defaultSeries: SerieType[] = []
-
 function Character() {
-  const [series, setSeries]: [SerieType[], (series: SerieType[]) => void] =
-    useState(defaultSeries)
-
-  const { id } = useParams<ParamsProp>()
-
-  async function getSeries(id: number) {
-    const response = await Api.MarvelApi.getAllSeriesByCharacterId(id)
-    if (response?.data) setSeries(response.data)
-  }
-
-  useEffect(() => {
-    getSeries(Number(id))
-  }, [])
+  const { loading, character, series } = useCharacter()
+  const imgSrc = `${character.thumbnail.path}.${character.thumbnail.extension}`
 
   return (
     <Container>
       <Header>
-        <CharacterName>Iron Man</CharacterName>
-        <Image />
+        <CharacterName>{character.name}</CharacterName>
+        <Image imgSrc={imgSrc} />
       </Header>
       <SeriesSection>
         <SectionTitle>SERIES</SectionTitle>
         <List>
           {series?.length > 0 &&
             series.map((serie: SerieType) => {
-              const { id, title, thumbnail } = serie
-              return <MidiaCard key={id} title={title} thumbnail={thumbnail} />
+              const { id, title, thumbnail, description } = serie
+              return (
+                <MidiaCard
+                  key={id}
+                  title={title}
+                  description={description}
+                  thumbnail={thumbnail}
+                />
+              )
             })}
         </List>
       </SeriesSection>

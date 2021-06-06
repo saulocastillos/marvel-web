@@ -76,9 +76,8 @@ function Characters() {
             searchResults.map((character: CharacterType) => {
               const { id, name, thumbnail, description } = character
               return (
-                <Link to={`/character/${id}`}>
+                <Link key={id} to={`/character/${id}`}>
                   <CharacterCard
-                    key={id}
                     name={name}
                     thumbnail={thumbnail}
                     description={description}

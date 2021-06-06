@@ -12,6 +12,10 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  ${media.lessThan('medium')`${css`
+    height: 400px;
+  `}
+  `}
 `
 
 export const Image = styled.div<ImageProps>`
@@ -20,6 +24,10 @@ export const Image = styled.div<ImageProps>`
   height: 70%;
   background-image: url(${(props) => props?.imgSrc});
   background-size: cover;
+  ${media.lessThan('medium')`${css`
+    height: 90%;
+  `}
+  `}
 `
 
 export const Name = styled.div`
@@ -41,4 +49,8 @@ export const Description = styled.span`
   font-size: ${({ theme }) => theme.fontSize.md};
   color: ${({ theme }) => theme.colors.white};
   font-family: 'MarvelRegular';
+  ${media.lessThan('medium')`${css`
+    display: none;
+  `}
+  `}
 `
