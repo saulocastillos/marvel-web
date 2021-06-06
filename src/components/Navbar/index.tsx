@@ -23,7 +23,7 @@ function Navbar() {
       </Links>
       <Action>
         <Name>SAULO CASTILHOS</Name>
-        <Description>VAGA FRONTEND</Description>
+        <Description>REACT.JS</Description>
         <Avatar>SC</Avatar>
       </Action>
     </Container>
