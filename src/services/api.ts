@@ -21,17 +21,13 @@ type CharactersParams = {
 export const Api = {
   MarvelApi: {
     getAllCharacters: async (params?: CharactersParams) => {
-      const { data } = await api.get('characters')
-      const response = {
-        data: {
-          count: 0,
-          limit: 0,
-          offset: 0,
-          total: 0,
-          results: data,
-        },
-      }
-      return response
+      const { data } = await api.get(
+        `v1/public/characters?apikey=${process.env.REACT_APP_ML_PBLC_API_KEY}`,
+        {
+          params,
+        }
+      )
+      return { data: data.data }
     },
     getAllSeriesByCharacterId: async (characterId?: number) => {
       const { data } = await api.get(
