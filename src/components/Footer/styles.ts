@@ -25,12 +25,12 @@ export const PagesList = styled.ul`
   `}
 `
 
-export const ListItem = styled.li`
+export const ListItem = styled.div`
   font-size: ${({ theme }) => theme.fontSize.md};
   color: ${({ theme }) => theme.colors.white};
 `
 
-export const LinksList = styled.li`
+export const LinksList = styled.div`
   grid-area: lks;
   list-style-type: none;
   justify-self: flex-end;

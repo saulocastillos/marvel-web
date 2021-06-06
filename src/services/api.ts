@@ -1,25 +1,49 @@
 import axios, { AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios'
 
-export const api = axios.create({})
+export const api = axios.create({
+  baseURL: process.env.REACT_APP_MARVEL_API,
+  // baseURL: 'http://localhost:3333',
+})
 
 api.interceptors.request.use(async (request: AxiosRequestConfig) => {
   const { headers } = request
   if (headers) {
     headers['Content-Type'] = 'application/json'
-    // headers.apikey = process.env.REACT_APP_MARVEL_API_KEY
   }
   return request
 })
 
+type CharactersParams = {
+  orderBy?: string[]
+  limit?: number
+}
+
 export const Api = {
   MarvelApi: {
-    getAllCharacters: () => {
-      return api.get(`${process.env.REACT_APP_MARVEL_API}/v1/public/characters`)
+    getAllCharacters: async (params?: CharactersParams) => {
+      const { data } = await api.get('characters')
+      const response = {
+        data: {
+          count: 0,
+          limit: 0,
+          offset: 0,
+          total: 0,
+          results: data,
+        },
+      }
+      return response
     },
-    getCharacterById: (id: number) => {
-      return api.get(
-        `${process.env.REACT_APP_MARVEL_API}/v1/public/characters/${id}`
+    getAllSeriesByCharacterId: async (characterId?: number) => {
+      const { data } = await api.get(
+        `v1/public/characters/${characterId}/series?apikey=${process.env.REACT_APP_ML_PBLC_API_KEY}`
       )
+      return { data: data.data }
+    },
+    getCharacterById: async (characterId: number) => {
+      const { data } = await api.get(
+        `/v1/public/characters/${characterId}?apikey=${process.env.REACT_APP_ML_PBLC_API_KEY}`
+      )
+      return { data: data.data }
     },
   },
 }
@@ -28,9 +52,7 @@ api.interceptors.response.use(
   (response: AxiosResponse) => {
     return response
   },
-  (error: AxiosError) => {
-    /* console.error(error); */
-  }
+  (error: AxiosError) => {}
 )
 
 export default Api
