@@ -2,8 +2,9 @@ import { DefaultTheme } from 'styled-components'
 
 const lightTheme: DefaultTheme = {
   name: 'light',
-  backgroundColor: '#ffffff',
+  backgroundColor: '#f2ede7',
   textColor: '#000000',
+  primaryColor: '#d84128',
   colors: {
     transparent: 'transparent',
     black: '#000000',
@@ -45,7 +46,7 @@ const lightTheme: DefaultTheme = {
       900: '#63171B',
     },
   },
-  fontFamily: 'SourceSerifPro-Regular serif',
+  fontFamily: 'Marvel',
   fontSize: {
     xxs: '0.75rem',
     xs: '0.875rem',
@@ -55,6 +56,13 @@ const lightTheme: DefaultTheme = {
     lg: '2.25rem',
     xl: '3rem',
     xxl: '3.75rem',
+    fourth: '4rem',
+    fifth: '5rem',
+    sixth: '6rem',
+    seventh: '7rem',
+    eighth: '8rem',
+    ninth: '9rem',
+    tenth: '10rem',
   },
   spacing: {
     xxs: '0.25rem',
@@ -81,7 +89,8 @@ const lightTheme: DefaultTheme = {
 const darkTheme: DefaultTheme = {
   name: 'dark',
   backgroundColor: '#000000',
-  textColor: '#ffffff',
+  textColor: '#f2ede7',
+  primaryColor: '#d84128',
   colors: {
     transparent: 'transparent',
     black: '#000000',
@@ -123,7 +132,7 @@ const darkTheme: DefaultTheme = {
       900: '#63171B',
     },
   },
-  fontFamily: 'SourceSerifPro-Regular serif',
+  fontFamily: 'Marvel',
   fontSize: {
     xxs: '0.75rem',
     xs: '0.875rem',
@@ -133,6 +142,13 @@ const darkTheme: DefaultTheme = {
     lg: '2.25rem',
     xl: '3rem',
     xxl: '3.75rem',
+    fourth: '4rem',
+    fifth: '5rem',
+    sixth: '6rem',
+    seventh: '7rem',
+    eighth: '8rem',
+    ninth: '9rem',
+    tenth: '10rem',
   },
   spacing: {
     xxs: '0.25rem',

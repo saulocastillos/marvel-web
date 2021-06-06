@@ -1,5 +1,8 @@
 import { createGlobalStyle, css } from 'styled-components'
 
+import Bebas from '../assets/fonts/Bebas-Regular.ttf'
+import MarvelRegular from '../assets/fonts/Marvel-Regular.ttf'
+
 const GlobalStyle = createGlobalStyle`${css`
   *,
   *::after,
@@ -7,6 +10,20 @@ const GlobalStyle = createGlobalStyle`${css`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  }
+
+  @font-face {
+    font-family: 'Marvel';
+    src: url(${Bebas});
+  }
+
+  @font-face {
+    font-family: 'MarvelRegular';
+    src: url(${MarvelRegular});
+  }
+
+  html {
+    font-size: 16px;
   }
 
   html,
@@ -28,12 +45,11 @@ const GlobalStyle = createGlobalStyle`${css`
   }
 
   button {
-    background: ${({ theme }) => theme.colors.teal?.[100]};
-    font-family: ${({ theme }) => theme.fontFamily};
     border: none;
-    border-radius: ${({ theme }) => theme.borderRadius.base};
+    background: ${({ theme }) => theme.backgroundColor};
+    opacity: 0.4;
     :hover {
-      background: ${({ theme }) => theme.colors.teal?.[200]};
+      opacity: 1;
     }
     cursor: pointer;
   }
