@@ -18,7 +18,7 @@ REACT_APP_MARVEL_API=https://gateway.marvel.com:443
 REACT_APP_ML_PBLC_API_KEY=YOUR_KEY
 
 1.5 Rode o npm:
-npm
+npm install
 
 1.6 Pronto, basta executar o seguinte comando:
 npm start
