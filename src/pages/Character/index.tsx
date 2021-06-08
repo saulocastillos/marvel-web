@@ -41,6 +41,10 @@ function Character() {
               )
             })}
         </List>
+        {loading && <h1>Carregando...</h1>}
+        {!loading && series?.length <= 0 && (
+          <h1>Nenhuma serie encontrada...</h1>
+        )}
       </SeriesSection>
       <EventsSection />
     </Container>
