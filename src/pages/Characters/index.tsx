@@ -26,28 +26,21 @@ const defaultCharacters: CharacterType[] = []
 
 function Characters() {
   const [search, setSearch] = useState('')
-  const [searchResults, setSearchResults]: [
-    CharacterType[],
-    (characters: CharacterType[]) => void
-  ] = useState(defaultCharacters)
-
-  const { loading, characters, orderBy, apiMeta, paginate } = useCharacters()
-
-  const handleChange = (event: SyntheticEvent) => {
-    const target = event.target as HTMLInputElement
-    setSearch(target.value)
-  }
+  const { loading, characters, charactersMeta, getCharacters, currentParams } =
+    useCharacters()
 
   useEffect(() => {
-    const result = characters?.filter((c) =>
-      c.name.toLowerCase().includes(search.toLowerCase())
-    )
-    if (result?.length > 0) {
-      setSearchResults(result)
-    } else {
-      setSearchResults([])
+    if (search !== '') {
+      const delaySearch = setTimeout(() => {
+        getCharacters({ nameStartsWith: search })
+      }, 1000)
+      return () => clearTimeout(delaySearch)
     }
-  }, [search, characters])
+
+    getCharacters({ limit: 10 }, true)
+
+    return () => {}
+  }, [search])
 
   return (
     <Container>
@@ -58,7 +51,7 @@ function Characters() {
             type='search'
             placeholder='Search'
             value={search}
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => setSearch(e.target.value)}
           />
           <SearchIconWrapper>
             <Icon size='10x' icon={faSearch} color='#d84128' />
@@ -66,14 +59,15 @@ function Characters() {
         </SearchBox>
       </Header>
       <FilterBar
-        orderBy={orderBy}
-        results={searchResults?.length || 0}
-        total={apiMeta?.total || 0}
+        currentParams={currentParams}
+        orderBy={getCharacters}
+        results={characters?.length || 0}
+        total={charactersMeta?.total || 0}
       />
       <Content>
         <List>
-          {searchResults?.length > 0 &&
-            searchResults.map((character: CharacterType) => {
+          {characters?.length > 0 &&
+            characters.map((character: CharacterType) => {
               const { id, name, thumbnail, description } = character
               return (
                 <Link key={id} to={`/character/${id}`}>
@@ -86,11 +80,11 @@ function Characters() {
               )
             })}
           {loading && <h1>Carregando...</h1>}
-          {!loading && searchResults?.length <= 0 && (
+          {!loading && characters?.length <= 0 && (
             <h1>Nenhum personagem encontrado...</h1>
           )}
         </List>
-        <Paginator paginate={paginate} apiMeta={apiMeta} />
+        <Paginator paginate={getCharacters} charactersMeta={charactersMeta} />
       </Content>
     </Container>
   )

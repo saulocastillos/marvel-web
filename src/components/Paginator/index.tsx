@@ -9,7 +9,7 @@ import { CharacterType } from '../../types/character'
 
 import { Container, Previous, Next, First, Last, Current } from './styles'
 
-type apiMetaType = {
+type CharactersMetaType = {
   offset: number
   limit: number
   total: number
@@ -19,10 +19,10 @@ type apiMetaType = {
 
 type FilterBarProps = {
   paginate: Function
-  apiMeta: apiMetaType
+  charactersMeta: CharactersMetaType
 }
 
-function Paginator({ paginate, apiMeta }: FilterBarProps) {
+function Paginator({ paginate, charactersMeta }: FilterBarProps) {
   const [paginator, setPaginator] = useState({
     first: { disabled: false, visible: true },
     previous: { disabled: false, visible: true },
@@ -32,8 +32,54 @@ function Paginator({ paginate, apiMeta }: FilterBarProps) {
     last: { disabled: false, visible: true },
   })
 
-  function handlePaginate(name: string) {
-    paginate(name)
+  function handleFirst() {
+    paginate({ limit: 10, offset: 0 })
+  }
+
+  function handleLast() {
+    paginate({
+      offset: charactersMeta.total - 10,
+      limit: 10,
+    })
+  }
+
+  function handlePrevious() {
+    const { offset } = charactersMeta
+
+    if (offset - 10 > 10) {
+      paginate({
+        offset: offset - 10,
+        limit: 10,
+      })
+    }
+  }
+
+  function handleNext() {
+    const { offset, total } = charactersMeta
+    if (total - offset > 10) {
+      paginate({
+        offset: charactersMeta.offset + 10,
+        limit: 10,
+      })
+    }
+  }
+
+  function handlePaginate(field: string) {
+    switch (field) {
+      case 'first':
+        handleFirst()
+        break
+      case 'previous':
+        handlePrevious()
+        break
+      case 'next':
+        handleNext()
+        break
+      case 'last':
+        handleLast()
+        break
+      default:
+    }
   }
 
   return (
@@ -64,7 +110,9 @@ function Paginator({ paginate, apiMeta }: FilterBarProps) {
         status={paginator.current}
         disabled={paginator.current.disabled}
       >
-        {apiMeta?.offset === 0 ? 1 : Math.ceil(apiMeta?.offset / 10 + 1)}
+        {charactersMeta?.offset === 0
+          ? 1
+          : Math.ceil(charactersMeta?.offset / 10 + 1)}
       </Current>
 
       <Next

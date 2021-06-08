@@ -2,7 +2,6 @@ import axios, { AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios'
 
 export const api = axios.create({
   baseURL: process.env.REACT_APP_MARVEL_API,
-  // baseURL: 'http://localhost:3333',
 })
 
 api.interceptors.request.use(async (request: AxiosRequestConfig) => {
@@ -16,6 +15,8 @@ api.interceptors.request.use(async (request: AxiosRequestConfig) => {
 type CharactersParams = {
   orderBy?: string[]
   limit?: number
+  offset?: number
+  nameStartsWith?: string
 }
 
 export const Api = {

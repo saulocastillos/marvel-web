@@ -1,20 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import Api from '../services/api'
 
-import { CharacterType, ApiResponseType } from '../types/character'
-
-type handleOrderByTypes = 'name' | 'modified'
+import { CharacterType } from '../types/character'
 
 type ParamsType = {
   orderBy?: string[]
   limit?: number
-  count?: number
   offset?: number
   total?: number
+  nameStartsWith?: string
 }
 
-type apiMetaType = {
+type charactersMetaType = {
   offset: number
   limit: number
   total: number
@@ -22,7 +20,7 @@ type apiMetaType = {
   results: CharacterType[]
 }
 
-const defaultApiMeta: apiMetaType = {
+const defaultCharactersMeta: charactersMetaType = {
   count: 0,
   limit: 10,
   offset: 0,
@@ -31,27 +29,49 @@ const defaultApiMeta: apiMetaType = {
 }
 const defaultCharacters: CharacterType[] = []
 
+const defaultParams: ParamsType = {}
+
 const useCharacters = () => {
-  const [apiMeta, setApiMeta]: [apiMetaType, (apiMeta: apiMetaType) => void] =
-    useState(defaultApiMeta)
+  const [charactersMeta, setCharactersMeta]: [
+    charactersMetaType,
+    (charactersMeta: charactersMetaType) => void
+  ] = useState(defaultCharactersMeta)
+
+  const [currentParams, setCurrentParams]: [
+    ParamsType,
+    (currentParams: ParamsType) => void
+  ] = useState(defaultParams)
 
   const [characters, setCharacters]: [
     CharacterType[],
     (characters: CharacterType[]) => void
   ] = useState(defaultCharacters)
   const [loading, setLoading] = useState(false)
-  const [order, setOrder] = useState({
-    name: 'name',
-    modified: 'modified',
-  })
 
-  async function getCharacters(params?: ParamsType) {
+  async function getCharacters(newParams?: ParamsType, reset?: boolean) {
     setLoading(true)
-    const { data } = await Api.MarvelApi.getAllCharacters(params)
+
+    const _currentParams = {
+      ...currentParams,
+    }
+
+    if (reset !== undefined && _currentParams.nameStartsWith) {
+      delete _currentParams.nameStartsWith
+    }
+
+    setCurrentParams({
+      ..._currentParams,
+      ...newParams,
+    })
+
+    const { data } = await Api.MarvelApi.getAllCharacters({
+      ..._currentParams,
+      ...newParams,
+    })
     if (data) {
       setCharacters(data.results)
       const { count, limit, offset, total, results } = data
-      setApiMeta({
+      setCharactersMeta({
         count,
         limit,
         offset,
@@ -62,71 +82,14 @@ const useCharacters = () => {
     setLoading(false)
   }
 
-  function orderBy(value: handleOrderByTypes) {
-    const _paramValue = order[value].includes('-') ? value : `-${value}`
-
-    const _order = {
-      ...order,
-      [value]: _paramValue,
-    }
-
-    const _queryParam = Object.values(_order)
-
-    setOrder(_order)
-    getCharacters({
-      orderBy: _queryParam,
-      limit: 10,
-    })
+  return {
+    characters,
+    loading,
+    getCharacters,
+    charactersMeta,
+    currentParams,
+    setCurrentParams,
   }
-
-  function handleFirst() {
-    getCharacters({ limit: 10 })
-  }
-
-  function handleLast() {
-    getCharacters({
-      offset: apiMeta.total - 10,
-      limit: 10,
-    })
-  }
-
-  function handlePrevious() {
-    getCharacters({
-      offset: apiMeta.offset - 10,
-      limit: 10,
-    })
-  }
-
-  function handleNext() {
-    getCharacters({
-      offset: apiMeta.offset + 10,
-      limit: 10,
-    })
-  }
-
-  function paginate(field: string) {
-    switch (field) {
-      case 'first':
-        handleFirst()
-        break
-      case 'previous':
-        handlePrevious()
-        break
-      case 'next':
-        handleNext()
-        break
-      case 'last':
-        handleLast()
-        break
-      default:
-    }
-  }
-
-  useEffect(() => {
-    getCharacters({ limit: 10 })
-  }, [])
-
-  return { characters, loading, getCharacters, orderBy, paginate, apiMeta }
 }
 
 export default useCharacters
